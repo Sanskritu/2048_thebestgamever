@@ -4,7 +4,6 @@ import random
 
 # creating main class
 class Play_2048(Tk):
-
     # adding class variables
     game_board = []
     new_random_tiles = [2, 2, 2, 2, 2, 2, 4]

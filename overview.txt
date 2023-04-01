@@ -1,4 +1,5 @@
-# Play2048
+define Play2048(self):
+    
 #     game_board
 #     new_random_tiles
 #     score
