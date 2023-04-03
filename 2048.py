@@ -35,7 +35,6 @@ class Play_2048(Tk):
         self.canvas.pack(side="top", fill="both", expand="false")
 
         # create new game
-        # self.new_game()
 
         # add new tiles
     def new_tiles(self):
