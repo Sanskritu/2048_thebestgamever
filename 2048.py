@@ -137,7 +137,23 @@ class Play_2048(Tk):
     # check for game over
 
 
-    # check for game won
+    # ==== check for game won
+    def game_won(self):
+        gameover = [["Y", "O", "U", "", ], ["", "", "", ""], ["W", "O", "N", "!"], ["", "", "", ""]]
+        cellwidth = 105
+        cellheight = 105
+        self.square = {}
+        for column in range(4):
+            for row in range(4):
+                a = column * cellwidth
+                b = row * cellheight
+                c = a + cellwidth - 5
+                d = b + cellheight - 5
+                self.square[row, column] = self.canvas.create_rectangle(a, b, c, d, fill="#ede0c8", tags="rect",
+                                                                        outline="")
+                self.canvas.create_text((a + c) / 2, (b + d) / 2, font=("Arial", 36), fill="#494949",
+                                        text=gameover[row][column])
+
 
 
     # main 
