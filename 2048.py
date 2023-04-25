@@ -132,9 +132,39 @@ class Play_2048(Tk):
         self.show_board()
 
     # check for game over
+    def game_over(self):
+        for i in range(0, 4):
+            for j in range(0, 4):
+                if (self.game_board[i][j] == 2048):
+                    self.game_won()
+        for i in range(0, 4):
+            for j in range(0, 4):
+                if (self.game_board[i][j] == 0):
+                    return False
+        for i in range(0, 4):
+            for j in range(0, 3):
+                if (self.game_board[i][j] == self.game_board[i][j + 1]):
+                    return False
+        for j in range(0, 4):
+            for i in range(0, 3):
+                if self.game_board[i][j] == self.game_board[i + 1][j]:
+                    return False
+        gameover = [["G", "A", "M", "E", ], ["", "", "", ""], ["O", "V", "E", "R"], ["", "", "", ""]]
+        cellwidth = 105
+        cellheight = 105
+        self.square = {}
 
-
-    # check for game over
+        for column in range(4):
+            for row in range(4):
+                a = column * cellwidth
+                b = row * cellheight
+                c = a + cellwidth - 5
+                d = b + cellheight - 5
+                self.square[row, column] = self.canvas.create_rectangle(a, b, c, d, fill="#ede0c8", tags="rect",
+                                                                        outline="")
+                self.canvas.create_text((a + c) / 2, (b + d) / 2, font=("Arial", 36), fill="#494949",
+                                        text=gameover[row][column])
+        return True
 
 
     # ==== check for game won
