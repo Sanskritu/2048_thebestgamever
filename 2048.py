@@ -103,7 +103,118 @@ class Play_2048(Tk):
         self.square[row, column] = self.canvas.create_rectangle(a, b, c, d, fill=bg_color[str(num)], tags="rect", outline="")
         self.canvas.create_text((a + c) / 2, (b + d) / 2, font=("Arial", 36), fill=color[str(num)], text=str(num))
 
-    # move by user
+     # ==== moves by user
+    def moves(self, event):
+
+        if event.keysym == 'Down':
+            for j in range(0, 4):
+                shift = 0
+                for i in range(3, -1, -1):
+                    if self.game_board[i][j] == 0:
+                        shift += 1
+                    else:
+                        if i - 1 >= 0 and self.game_board[i - 1][j] == self.game_board[i][j]:
+                            self.game_board[i][j] *= 2
+                            self.score += self.game_board[i][j]
+                            self.game_board[i - 1][j] = 0
+                        elif i - 2 >= 0 and self.game_board[i - 1][j] == 0 and self.game_board[i - 2][j] == self.game_board[i][j]:
+                            self.game_board[i][j] *= 2
+                            self.score += self.game_board[i][j]
+                            self.game_board[i - 2][j] = 0
+                        elif i == 3 and self.game_board[2][j] + self.game_board[1][j] == 0 and self.game_board[0][j] == self.game_board[3][
+                            j]:
+                            self.game_board[3][j] *= 2
+                            self.score += self.game_board[3][j]
+                            self.game_board[0][j] = 0
+                        if shift > 0:
+                            self.game_board[i + shift][j] = self.game_board[i][j]
+                            self.game_board[i][j] = 0
+            self.show_board()
+            self.new_tiles()
+            self.game_over()
+        elif event.keysym == 'Right':
+            for i in range(0, 4):
+                shift = 0
+                for j in range(3, -1, -1):
+                    if self.game_board[i][j] == 0:
+                        shift += 1
+                    else:
+                        if j - 1 >= 0 and self.game_board[i][j - 1] == self.game_board[i][j]:
+                            self.game_board[i][j] *= 2
+                            self.score += self.game_board[i][j]
+                            self.game_board[i][j - 1] = 0
+                        elif j - 2 >= 0 and self.game_board[i][j - 1] == 0 and self.game_board[i][j - 2] == self.game_board[i][j]:
+                            self.game_board[i][j] *= 2
+                            self.score += self.game_board[i][j]
+                            self.game_board[i][j - 2] = 0
+                        elif j == 3 and self.game_board[i][2] + self.game_board[i][1] == 0 and self.game_board[0][j] == self.game_board[3][
+                            j]:
+                            self.game_board[i][3] *= 2
+                            self.score += self.game_board[i][3]
+                            self.game_board[i][0] = 0
+                        if shift > 0:
+                            self.game_board[i][j + shift] = self.game_board[i][j]
+                            self.game_board[i][j] = 0
+            self.show_board()
+            self.new_tiles()
+            self.game_over()
+        elif event.keysym == 'Left':
+            for i in range(0, 4):
+                shift = 0
+                for j in range(0, 4):
+                    if self.game_board[i][j] == 0:
+                        shift += 1
+                    else:
+                        if j + 1 < 4 and self.game_board[i][j + 1] == self.game_board[i][j]:
+                            self.game_board[i][j] *= 2
+                            self.score += self.game_board[i][j]
+                            self.game_board[i][j + 1] = 0
+                        elif j + 2 < 4 and self.game_board[i][j + 1] == 0 and self.game_board[i][j + 2] == self.game_board[i][j]:
+                            self.game_board[i][j] *= 2
+                            self.score += self.game_board[i][j]
+                            self.game_board[i][j + 2] = 0
+                        elif j == 0 and self.game_board[i][1] + self.game_board[i][2] == 0 and self.game_board[i][3] == self.game_board[i][
+                            0]:
+                            self.game_board[i][0] *= 2
+                            self.score += self.game_board[i][0]
+                            self.game_board[i][3] = 0
+                        if shift > 0:
+                            self.game_board[i][j - shift] = self.game_board[i][j]
+                            self.game_board[i][j] = 0
+            self.show_board()
+            self.new_tiles()
+            self.game_over()
+        elif event.keysym == 'Up':
+            for j in range(0, 4):
+                shift = 0
+                for i in range(0, 4):
+                    if self.game_board[i][j] == 0:
+                        shift += 1
+                    else:
+                        if i + 1 < 4 and self.game_board[i + 1][j] == self.game_board[i][j]:
+                            self.game_board[i][j] *= 2
+                            self.score += self.game_board[i][j]
+                            self.game_board[i + 1][j] = 0
+                        elif i + 2 < 4 and self.game_board[i + 1][j] == 0 and self.game_board[i + 2][j] == self.game_board[i][j]:
+                            self.game_board[i][j] *= 2
+                            self.score += self.game_board[i][j]
+                            self.game_board[i + 2][j] = 0
+                        elif i == 0 and self.game_board[1][j] + self.game_board[2][j] == 0 and self.game_board[3][j] == self.game_board[0][
+                            j]:
+                            self.game_board[0][j] *= 2
+                            self.score += self.game_board[0][j]
+                            self.game_board[3][j] = 0
+                        if shift > 0:
+                            self.game_board[i - shift][j] = self.game_board[i][j]
+                            self.game_board[i][j] = 0
+            self.show_board()
+            self.new_tiles()
+            self.game_over()
+
+        self.game_score.set(str(self.score))
+        if self.score > self.high_score:
+            self.high_score = self.score
+            self.highest_score.set(str(self.high_score))
 
 
     # create new game
